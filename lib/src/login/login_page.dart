@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pruebas/src/utils/my_colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,28 +12,45 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Flutter Delivery App")),
-      body: Stack(
-        children: [
-          Container(
-            width:150,
-            height:150,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(45),
-                  bottomLeft: Radius.circular(85),
-                  bottomRight: Radius.circular(35)),
-            
-            color: Colors.pinkAccent,
-            )
-          ),
-        Container(
-          margin:EdgeInsets.only(top:60,left:60),
-          child: Text("LOGIN")
+     
+      body:Container(
+        width:double.infinity,
+        child: Column(
+          
+          children: [
+            Image.asset('assets/img/delivery.png',
+            width:200,
+            height:200),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Correo electrónico"
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Contraseña"
+              ),
+            ),
+            ElevatedButton(onPressed: (){}, child: Text("INGRESAR"),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("¿No tienes cuenta?",
+                style:TextStyle(
+                  color:MyColors.primaryColor
+                )),
+                SizedBox(width: 7),
+                Text("Registrate",
+                style:TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color:MyColors.primaryColor
+                ) ,)
+              ],
+            ),
+          ],
         ),
-        ],
-      ),
-    );
+      )
+  );
   }
 }
