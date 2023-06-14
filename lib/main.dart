@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pruebas/src/login/login_page.dart';
+import 'package:pruebas/src/register/register_page.dart';
 import 'package:pruebas/src/utils/my_colors.dart';
 
 void main() {
@@ -22,7 +23,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
       routes: {
-        "login":(context) => LoginPage()
+        "login":(context) => LoginPage(),
+        "register":(context) =>RegisterPage()
       },
       theme:ThemeData(
         primarySwatch:  Colors.red

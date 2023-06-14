@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pruebas/src/login/login_controller.dart';
 import 'package:pruebas/src/utils/my_colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +12,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController _con = new LoginController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _con.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
             left: 22,
             child: _textLogin(),
           ),
-         Column(
+          SingleChildScrollView(
+            child: Column(
               children: [
                 _lottieAnimation(),
                 _textfieldEmail(),
@@ -43,7 +57,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-          ],
+          ),
+        ],
       ),
     ));
   }
@@ -51,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _imageBanner() {
     return Container(
       margin: EdgeInsets.only(
-          top: 100, bottom: MediaQuery.of(context).size.height * 0.22),
+          top: 150, bottom: MediaQuery.of(context).size.height * 0.22),
       child: Image.asset('assets/img/delivery.png', width: 200, height: 200),
     );
   }
@@ -64,13 +79,15 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(
+          controller: _con.emailController,
+          keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-        hintText: "Correo electrónico",
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.all(15),
-        hintStyle: TextStyle(color: MyColors.primaryColorDark),
-        prefixIcon: Icon(Icons.email, color: MyColors.primaryColor),
-      )),
+            hintText: "Correo electrónico",
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            prefixIcon: Icon(Icons.email, color: MyColors.primaryColor),
+          )),
     );
   }
 
@@ -82,13 +99,15 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(
+          obscureText: true,
+          controller: _con.passwordController,
           decoration: InputDecoration(
-        hintText: "Contraseña",
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.all(15),
-        hintStyle: TextStyle(color: MyColors.primaryColorDark),
-        prefixIcon: Icon(Icons.lock, color: MyColors.primaryColor),
-      )),
+            hintText: "Contraseña",
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            prefixIcon: Icon(Icons.lock, color: MyColors.primaryColor),
+          )),
     );
   }
 
@@ -97,7 +116,9 @@ class _LoginPageState extends State<LoginPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            _con.login();
+          },
           child: Text("INGRESAR"),
           style: ElevatedButton.styleFrom(
               backgroundColor: MyColors.primaryColor,
@@ -118,10 +139,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _textRegistrate() {
-    return Text(
-      "Registrate",
-      style:
-          TextStyle(fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+    return GestureDetector(
+      onTap: () {
+        _con.goToRegisterPage();
+      },
+      child: Text(
+        "Registrate",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+      ),
     );
   }
 
@@ -139,16 +165,19 @@ class _LoginPageState extends State<LoginPage> {
     return Text(
       "LOGIN",
       style: TextStyle(
-        fontFamily: 'Montserrat',
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+          fontFamily: 'Montserrat',
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 22),
     );
   }
 
   Widget _lottieAnimation() {
     return Container(
       margin: EdgeInsets.only(
-          top: 150, bottom: MediaQuery.of(context).size.height * 0.12),
-      child: Lottie.asset('assets/json/delivery2.json', width: 300, height: 200),
+          top: 190, bottom: MediaQuery.of(context).size.height * 0.10),
+      child:
+          Lottie.asset('assets/json/delivery2.json', width: 300, height: 200),
     );
   }
 }
