@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:pruebas/src/register/register_controller.dart';
+import 'package:pruebas/src/pages/register/register_controller.dart';
 
-import '../utils/my_colors.dart';
+import '../../utils/my_colors.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -223,7 +223,7 @@ class _RegisterPageState extends State<RegisterPage> {
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
       child: ElevatedButton(
           onPressed: () {
-            _con.registro();
+            _con.create();
           },
           child: Text("REGISTRARSE"),
           style: ElevatedButton.styleFrom(
