@@ -26,7 +26,7 @@ class UsersProvider {
 
       dynamic response = await http.post(url, headers: headers, body: bodyParams);
 
-      String data = convert.jsonEncode(response.body);
+      String data = response.body;
        
       return data;
     

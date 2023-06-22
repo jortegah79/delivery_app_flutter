@@ -30,8 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Stack(
           children: [
             Positioned(child: _circleLogin(), top: -90, left: -60),
-            Positioned(child: _IconBack(), top: 40, left: 1),
-            Positioned(child: _textLogin(), top: 50, left: 30),
+            Positioned(child: _IconBack(), top: 55, left: 1),
+            Positioned(child: _textLogin(), top: 65, left: 30),
             Container(
               margin: EdgeInsets.only(top: 150),
               width: double.infinity,
