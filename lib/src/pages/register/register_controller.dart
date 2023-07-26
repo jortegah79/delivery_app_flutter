@@ -3,6 +3,8 @@ import "package:pruebas/src/models/user.dart";
 import "package:pruebas/src/provider/users_provider.dart";
 import "package:pruebas/src/utils/my_snackbar.dart";
 
+import "../../utils/my_snackbar.dart";
+
 class RegisterController {
   BuildContext? context;
 
@@ -18,7 +20,11 @@ class RegisterController {
     this.context = context;
   }
 
+void goToLoginPage(){
+  Navigator.pushNamed(context!, "login");
+}
   Future<void> create() async {
+     String texto="";
     String id = '0';
     String email = emailController.text.trim();
     String name = nameController.text.trim();
@@ -34,6 +40,10 @@ class RegisterController {
         pass.isEmpty ||
         pass2.isEmpty) {
       MySnackbar.show(context, "Debes ingresar todos los campos.");
+      return;
+    }
+    if(email.contains("@")==false){
+      MySnackbar.show(context, "No es un email correcto.");
       return;
     }
     if (pass != pass2) {
@@ -54,9 +64,20 @@ class RegisterController {
         phone: phone,
         password: pass,
         sessionToken: "",
-        imagen: "");
+        imagen: "",
+        roles:[]);
 
     id = await usersProvider.create(user) ?? "0";
-    print('El resultado es este: ${id}');
+
+    if(id==0){
+       texto="Ya existe un usuario con ese correo o con ese telefono.";
+    }else{
+      Future.delayed(Duration(seconds:3),(){
+          Navigator.pushReplacementNamed(context!, 'login');
+      });
+       texto="Usuario introducido correctamente. Inicia sesion.";
+    }
+   MySnackbar.show(context,texto);
+    
   }
 }
